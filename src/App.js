@@ -38,7 +38,7 @@ function App() {
             <ul className="list-group">
               {
                 tasks.map((task)=> (
-                    <li className="list-group-item">
+                    <li className="list-group-item"  >
                     <span className="lead">{task.name}</span>
                     <button className="btn btn-danger btn-sm float-right mx-2">Eliminar</button>
                     <button className="btn btn-warning btn-sm float-right">Editar</button>
