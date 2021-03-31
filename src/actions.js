@@ -36,3 +36,34 @@ export const addDocument = async (collection, data) => {
     }
     return result
 }
+
+export const getDocument = async (collection,id) => {
+    const result = { statusResponse: false, data:null, error:null}
+    try {
+        const response = await db.collection(collection).doc(id).get()
+        result.data = {id:response.id, ... response.date()}
+        result.statusResponse = true
+
+        
+    } catch (error) {
+        result.error = error
+    }
+
+
+
+}
+export const updateDocument = async (collection,id, data) => {
+    const result = { statusResponse: false, error:null}
+    try {
+        
+        await db.collection(collection).doc(id).update(data)
+        result.statusResponse=true
+        
+    } catch (error) {
+        result.error = error
+        result.statusResponse=false
+    }
+    return result
+    
+
+}

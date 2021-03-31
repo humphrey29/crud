@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { isEmpty,size } from 'lodash'
 import shortid from 'shortid'
-import { addDocument, getCollection } from './actions'
+import { addDocument, getCollection, updateDocument } from './actions'
 
 
 function App() {
@@ -69,12 +69,20 @@ const validForm = () => {
 
    }
 
-   const savedTask = (e) => {
+   const savedTask = async (e) => {
     e.preventDefault()
     if(!validForm()) {
       return
     }
     
+    const result = await updateDocument("tasks",id,{name:task})
+
+    if (!result.statusResponse)
+    {
+      setError(result.error)
+      return 
+    }
+
     const editedTasks = tasks.map(item => item.id === id ? {id,name:task}:item)
     setTasks(editedTasks)
     //limpiar valores
