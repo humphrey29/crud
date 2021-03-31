@@ -67,3 +67,19 @@ export const updateDocument = async (collection,id, data) => {
     
 
 }
+
+export const deleteDocument = async (collection,id) => {
+    const result = { statusResponse: false, error:null}
+    try {
+        
+        await db.collection(collection).doc(id).delete()
+        result.statusResponse=true
+        
+    } catch (error) {
+        result.error = error
+        result.statusResponse=false
+    }
+    return result
+    
+
+}

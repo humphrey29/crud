@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { isEmpty,size } from 'lodash'
 import shortid from 'shortid'
-import { addDocument, getCollection, updateDocument } from './actions'
+import { addDocument, deleteDocument, getCollection, updateDocument } from './actions'
 
 
 function App() {
@@ -56,9 +56,23 @@ const validForm = () => {
 
   }
 
-  const deleteTask = (id) => {
-    const filteredTask = tasks.filter(task => task.id !== id)
-    setTasks(filteredTask)
+  const deleteTask = async (id) => {
+
+    if(window.confirm("¿Estas Seguro?"))
+
+    {
+
+    
+          const result = await deleteDocument("tasks",id)
+          if(!result.statusResponse)
+          {
+            setError(result.error)
+            return 
+          }
+          const filteredTask = tasks.filter(task => task.id !== id)
+          setTasks(filteredTask)
+    }
+
   }
  
    const editTask = (theTask) => {
